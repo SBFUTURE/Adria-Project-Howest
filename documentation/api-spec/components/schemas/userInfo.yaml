@@ -1,0 +1,19 @@
+type: object
+properties:
+  userId:
+    type: string
+  userName:
+    type: string
+  reviewScore:
+    type: number
+  carInfo:
+    $ref: "./carInfo.yaml"
+required:
+  - userId
+  - userName
+example:
+  userId: "1"
+  userName: "Jordy Badisco"
+  reviewScore: 4.5
+  carInfo:
+    $ref: "./carInfo.yaml#/example"

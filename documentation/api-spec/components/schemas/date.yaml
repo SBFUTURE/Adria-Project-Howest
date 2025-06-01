@@ -1,0 +1,20 @@
+type: object
+description: Information about a date.
+properties:
+  day:
+    type: integer
+    description: The day of the month.
+  month:
+    type: integer
+    description: The month.
+  year:
+    type: integer
+    description: The year.
+required:
+  - day
+  - month
+  - year
+example:
+  day: 1
+  month: 1
+  year: 2084

@@ -1,0 +1,18 @@
+carInfo:
+  type: object
+  properties:
+    carModel:
+      type: string
+    carColor:
+      type: string
+    carLicensePlate:
+      type: string
+  required:
+    - carColor
+    - carModel
+    - carLicensePlate
+  example:
+    carModel: "Ford Mustang GT Premium Fastback"
+    carColor: "Blue"
+    carLicensePlate: "ABC123"
+  

@@ -1,0 +1,43 @@
+type: object
+description: Information about a route.
+properties:
+  driverId:
+    type: integer
+    description: The driver's ID.
+  totalPrice:
+    type: integer
+    description: The total price.
+  distance:
+    type: integer
+    description: The distance.
+  amount:
+    type: integer
+    description: The amount of people.
+  startPoint:
+    $ref: "./location.yaml"
+  endPoint:
+    $ref: "./location.yaml"
+  date:
+    $ref: "./date.yaml"
+required:
+  - driverId
+  - totalPrice
+  - distance
+  - amount
+  - startPoint
+  - endPoint
+  - date
+example:
+  driverId: 1
+  totalPrice: 300
+  distance: 300
+  amount: 1
+  startPoint:
+    $ref: "./location.yaml#/example"
+  endPoint:
+    city: "Bruges"
+    cityCode: 8200
+    street: "Example Street"
+    homeNumber: 10
+  date:
+    $ref: "./date.yaml#/example"

@@ -1,0 +1,25 @@
+type: object
+description: Information about a ride
+properties:
+  rideId:
+    type: integer
+  payed:
+    type: boolean
+  canceled:
+    type: boolean
+  amount:
+    type: integer
+    minimum: 1
+  routeInfo:
+    $ref: "routeInfo.yaml"
+required:
+  - rideId
+  - payed
+  - canceled
+  - routeInfo
+example:
+  rideId: 1
+  payed: true
+  canceled: false
+  routeInfo:
+    $ref: "./routeInfo.yaml#/example"

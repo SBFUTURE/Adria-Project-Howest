@@ -1,0 +1,16 @@
+error:
+  type: object
+  description: Information about an error.
+  properties:
+    error:
+      type: string
+      description: The error message.
+    reason:
+      type: string
+      description: The reason for the error.
+  required:
+    - error
+    - reason
+  example:
+    error: "Unknown"
+    reason: "Unknown"

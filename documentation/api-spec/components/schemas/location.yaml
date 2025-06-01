@@ -1,0 +1,24 @@
+type: object
+description: Information about a location.
+properties:
+  city:
+    type: string
+    description: The name of the city.
+  cityCode:
+    type: number
+    description: The city code.
+  street:
+    type: string
+    description: The street name.
+  homeNumber:
+    type: number
+    description: The home number.
+required:
+  - cityCode
+  - street
+  - homeNumber
+example:
+  city: "Bruges"
+  cityCode: 8200
+  street: "Rijzelstreet"
+  homeNumber: 5

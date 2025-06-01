@@ -1,0 +1,68 @@
+value: [
+  {
+    "rideId": 1,
+    "payed": true,
+    "canceled": false,
+    "routeInfo": {
+      "driverId": 1,
+      "passengers": [
+        2,
+        3,
+        4
+      ],
+      "totalPrice": 300,
+      "distance": 300,
+      "amount": 1,
+      "startPoint": {
+        "city": "Bruges",
+        "cityCode": 8200,
+        "street": "Rijzelstreet",
+        "homeNumber": 5
+      },
+      "endPoint": {
+        "city": "Bruges",
+        "cityCode": 8200,
+        "street": "Example Street",
+        "homeNumber": 10
+      },
+      "date": {
+        "day": 1,
+        "month": 1,
+        "year": 2084
+      }
+    }
+  },
+  {
+    "rideId": 2,
+    "payed": true,
+    "canceled": false,
+    "routeInfo": {
+      "driverId": 1,
+      "passengers": [
+        9,
+        8,
+        7
+      ],
+      "totalPrice": 300,
+      "distance": 300,
+      "amount": 1,
+      "startPoint": {
+        "city": "Bruges",
+        "cityCode": 8200,
+        "street": "Rijzelstreet",
+        "homeNumber": 10
+      },
+      "endPoint": {
+        "city": "Bruges",
+        "cityCode": 8200,
+        "street": "Example Street",
+        "homeNumber": 5
+      },
+      "date": {
+        "day": 2,
+        "month": 1,
+        "year": 2084
+      }
+    }
+  }
+]

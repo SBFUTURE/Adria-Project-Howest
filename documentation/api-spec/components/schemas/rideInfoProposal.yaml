@@ -1,0 +1,13 @@
+type: object
+description: Information about a ride option
+properties:
+  driverId:
+    type: integer
+  price:
+    type: integer
+required:
+  - driverId
+  - price
+example:
+  driverId: 1
+  price: 100

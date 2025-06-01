@@ -1,0 +1,683 @@
+openapi: 3.0.3
+info:
+  title: 'Adria YoUber - Adria-13'
+  description: 'Description of the Adria API - Adria-13'
+  version: 0.0.2
+servers:
+  - url: https://project-2.ti.howest.be/2023-2024/group-13/
+    description: 'Public API'
+  - url: http://localhost:8080/
+    description: 'Local API'
+paths:
+  /api/user/auth:
+    post:
+      description: Authenticate on our platform
+      operationId: authUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adriaId:
+                  type: string
+              required:
+                - adriaId
+      responses:
+        '200':
+          description: User created
+        '400':
+          description: Adria ID does not exist
+
+  /api/users:
+    get:
+      description: Get all users
+      operationId: getUsers
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/userInfo"
+
+  /api/user/info:
+    get:
+      description: Information about an user.
+      operationId: getUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+              required:
+                - userId
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userInfo'
+              examples:
+                everything:
+                  $ref: "#/components/examples/userInfo"
+                minimum:
+                  $ref: "#/components/examples/userInfoMin"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                userNotFound:
+                  $ref: "#/components/examples/userNotFound"
+
+  /api/user/carinfo:
+    post:
+      description: Add car info to a user
+      operationId: addCarInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                carBrand:
+                  type: string
+                carModel:
+                  type: string
+                carBuildYear:
+                  type: integer
+                carLicensePlate:
+                  type: string
+              required:
+                - carModel
+                - carBuildYear
+                - carLicensePlate
+      responses:
+        '200':
+          description: Car info added
+        '400':
+          description: Bad request
+
+  /api/ride/info/{rideId}:
+    get:
+      description: Information about an ride
+      operationId: getRideInfo
+      parameters:
+        - in: path
+          name: rideId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rideInfo'
+              examples:
+                everything:
+                  $ref: "#/components/examples/rideInfo"
+                minimum:
+                  $ref: "#/components/examples/rideInfoMin"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                rideNotFound:
+                  $ref: "#/components/examples/rideNotFound"
+
+  /api/ride/cancel/{rideId}:
+    patch:
+      description: Cancel a ride
+      operationId: cancelRide
+      parameters:
+        - in: path
+          name: rideId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '403':
+          description: Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                notAllowed:
+                  $ref: "#/components/examples/notAllowed"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                rideNotFound:
+                  $ref: "#/components/examples/rideNotFound"
+
+  /api/user/info/{userId}:
+    get:
+      description: Information about an user.
+      operationId: getUser
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userInfo'
+              examples:
+                everything:
+                  $ref: "#/components/examples/userInfo"
+                minimum:
+                  $ref: "#/components/examples/userInfoMin"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                userNotFound:
+                  $ref: "#/components/examples/userNotFound"
+
+
+  /api/rides:
+    get:
+      description: Information about all your rides.
+      operationId: getRides
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/rideInfoProposal"
+              examples:
+                everything:
+                  $ref: "#/components/examples/ridesInfo"
+                minimum:
+                  $ref: "#/components/examples/ridesInfoMin"
+
+  /api/user/review:
+    post:
+      description: Give a review to a user
+      operationId: addReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                reviewScore:
+                  type: number
+                reviewText:
+                  type: string
+              required:
+                - userId
+                - reviewScore
+                - reviewText
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                reviewNotAllowed:
+                  $ref: "#/components/examples/reviewNotAllowed"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                userNotFound:
+                  $ref: "#/components/examples/userNotFound"
+
+  /api/ride/create:
+    post:
+      description: Create a ride
+      operationId: createRide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  $ref: "#/components/schemas/location"
+                destination:
+                  $ref: "#/components/schemas/location"
+                price:
+                  type: number
+                seats:
+                  type: number
+              required:
+                - source
+                - destination
+                - price
+                - seats
+      responses:
+        '201':
+          description: Created the ride
+        '400':
+          description: Bad request
+  
+
+  /api/ride/plan:
+    post:
+      description: Plan a ride
+      operationId: planRide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startPoint:
+                  $ref: "#/components/schemas/location"
+                endPoint:
+                  $ref: "#/components/schemas/location"
+                date:
+                  $ref: "#/components/schemas/date"
+                amount:
+                  type: number
+                  minimum: 1
+                driverId:
+                  type: string
+              required:
+                - startPoint
+                - endPoint
+                - driverId
+                - amount
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rideId:
+                    type: integer
+                  rideInfo:
+                    $ref: "#/components/schemas/rideInfo"
+              examples:
+                everything:
+                  $ref: "#/components/examples/ridesInfo"
+                minimum:
+                  $ref: "#/components/examples/ridesInfoMin"
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                driverNotFound:
+                  $ref: "#/components/examples/driverNotFound"
+                locationNotFound:
+                  $ref: "#/components/examples/locationNotFound"
+        '409':
+          description: Driver is already busy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+              examples:
+                driverAlreadyBooked:
+                  $ref: "#/components/examples/driverAlreadyBooked"
+
+components:
+  examples:
+    carInfo:
+      summary: car info
+      value:
+        carModel: "Ford Mustang GT Premium Fastback"
+        carColor: "Blue"
+        carLicensePlate: "ABC123"
+    date:
+      summary: date info
+      value:
+        day: 1
+        month: 1
+        year: 2084
+    error:
+      value:
+        error: "Unkown"
+        reason: "Unkown"
+    location:
+      value:
+        city: "Bruges"
+        cityCode: 8200
+        street: "Rijzelstreet"
+        homeNumber: 5
+    rideInfo:
+      value:
+        rideId: 1
+        payed: true
+        canceled: false
+        rideInfo:
+          driverId: 1
+          totalPrice: 300
+          distance: 300
+          amount: 1
+          startPoint:
+            city: "Bruges"
+            cityCode: 8200
+            street: "Example Street"
+            homeNumber: 1
+          endPoint:
+            city: "Bruges"
+            cityCode: 8200
+            street: "Example Street"
+            homeNumber: 5
+          date:
+            day: 1
+            month: 1
+            year: 2084
+    rideInfoMin:
+      value:
+        rideId: 1
+        payed: true
+        canceled: false
+        rideInfo: 1
+    rideInfoProposal:
+      value: [ {
+        "driver": {
+          "userId": 23,
+          "userName": "Jordy Badisco",
+          "reviewScore": 4.5,
+          "carInfo": {
+            "carModel": "Ford Mustang GT Premium Fastback",
+            "carColor": "Blue",
+            "carLicensePlate": "ABC123"
+          }
+        },
+        "price": 100
+      } ]
+    rideInfoProposalMin:
+      value: [ {
+        "driverId": 1,
+        "price": 100
+      } ]
+    ridesInfo:
+      value: [ {
+        "rideId": 1,
+        "payed": true,
+        "canceled": false,
+        "rideInfo": {
+          "driverId": 1,
+          "totalPrice": 300,
+          "distance": 300,
+          "amount": 1,
+          "startPoint": {
+            "city": "Bruges",
+            "cityCode": 8200,
+            "street": "Example Street",
+            "homeNumber": 1
+          },
+          "endPoint": {
+            "city": "Bruges",
+            "cityCode": 8200,
+            "street": "Example Street",
+            "homeNumber": 5
+          },
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2084
+          }
+        }
+      } ]
+
+    ridesInfoMin:
+      value: [ 1,2,3 ]
+    rideInfo:
+      value:
+        driverId: 1
+        totalPrice: 300
+        distance: 300
+        amount: 1
+        startPoint:
+          city: "Bruges"
+          cityCode: 8200
+          street: "Example Street"
+          homeNumber: 1
+        endPoint:
+          city: "Bruges"
+          cityCode: 8200
+          street: "Example Street"
+          homeNumber: 5
+        date:
+          day: 1
+          month: 1
+          year: 2084
+    userInfo:
+      value:
+        userId: 23
+        userName: "Jordy Badisco"
+        reviewScore: 4.5
+        carInfo:
+          carModel: "Ford Mustang GT Premium Fastback"
+          carColor: "Blue"
+          carLicensePlate: "ABC123"
+    userInfoMin:
+      value:
+        userId: 23
+        userName: "Jordy Badisco"
+        reviewScore: 4.5
+    badRequest:
+      value:
+        error: Not found
+        reason: Not alle required data has been given.
+    driverAlreadyBooked:
+      value:
+        error: Conflict
+        reason: Driver is already booked, Try a other driver or time.
+    driverNotFound:
+      value:
+        error: Not found
+        reason: There is no driver with that id.
+    locationNotFound:
+      value:
+        error: Not found
+        reason: The location you gave is not found!
+    noOptionsAfterFilterApplied:
+      value:
+        error: Not found
+        reason: Because of the filter there are no options to give.
+    notAllowed:
+      value:
+        error: Not allowed
+        reason: You don't have permission to do that!
+    reviewNotAllowed:
+      value:
+        error: Not allowed
+        reason: You don't have a open review for this person.
+    rideNotFound:
+      value:
+        error: Not found
+        reason: There is no ride with that id.
+    userNotFound:
+      value:
+        error: Not found
+        reason: There is no user with that id.
+
+  schemas:
+    carInfo:
+      type: object
+      properties:
+        carModel:
+          type: string
+        carColor:
+          type: string
+        carLicensePlate:
+          type: string
+      required:
+        - carColor
+        - carModel
+        - carLicensePlate
+    date:
+      type: object
+      description: Information about a date.
+      properties:
+        day:
+          type: integer
+          description: The day of the month.
+        month:
+          type: integer
+          description: The month.
+        year:
+          type: integer
+          description: The year.
+      required:
+        - day
+        - month
+        - year
+    error:
+      type: object
+      description: Information about an error.
+      properties:
+        error:
+          type: string
+          description: The error message.
+        reason:
+          type: string
+          description: The reason for the error.
+      required:
+        - error
+        - reason
+    location:
+      type: object
+      description: Information about a location.
+      properties:
+        city:
+          type: string
+          description: The name of the city.
+        cityCode:
+          type: string
+          description: The city code.
+        street:
+          type: string
+          description: The street name.
+        homeNumber:
+          type: string
+          description: The home number.
+      required:
+        - cityCode
+        - street
+        - homeNumber
+    rideInfo:
+      type: object
+      description: Information about a ride
+      properties:
+        rideId:
+          type: integer
+        payed:
+          type: boolean
+        canceled:
+          type: boolean
+        amount:
+          type: integer
+          minimum: 1
+        rideInfo:
+          $ref: "#/components/schemas/rideInfo"
+      required:
+        - rideId
+        - payed
+        - canceled
+        - rideInfo
+    rideInfoProposal:
+      type: object
+      description: Information about a ride option
+      properties:
+        driverId:
+          type: integer
+        price:
+          type: number
+      required:
+        - driverId
+        - price
+    rideInfo:
+      type: object
+      description: Information about a route.
+      properties:
+        driverId:
+          type: integer
+          description: The driver's ID.
+        totalPrice:
+          type: number
+          description: The total price.
+        distance:
+          type: number
+          description: The distance.
+        amount:
+          type: integer
+          description: The amount of people.
+        startPoint:
+          $ref: "#/components/schemas/location"
+        endPoint:
+          $ref: "#/components/schemas/location"
+        date:
+          $ref: "#/components/schemas/date"
+      required:
+        - driverId
+        - totalPrice
+        - distance
+        - amount
+        - startPoint
+        - endPoint
+        - date
+    userInfo:
+      type: object
+      properties:
+        userId:
+          type: integer
+        userName:
+          type: string
+        reviewScore:
+          type: number
+        carInfo:
+          $ref: "#/components/schemas/carInfo"
+      required:
+        - userId
+        - userName
+

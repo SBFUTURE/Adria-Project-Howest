@@ -1,0 +1,27 @@
+value: [ {
+  driver: {
+    "userId": 1,
+    "userName": "john doe",
+    "reviewScore": 4.5,
+    "carInfo": {
+      "carModel": "Ford Mustang GT Premium Fastback",
+      "carColor": "Blue",
+      "carLicensePlate": "ABC123"
+    }
+  },
+  price: 100
+},
+  {
+    driver: {
+      "userId": 23,
+      "userName": "Jordy Badisco",
+      "reviewScore": 4.5,
+      "carInfo": {
+        "carModel": "Ford Mustang GT Premium Fastback",
+        "carColor": "Red",
+        "carLicensePlate": "321CBA"
+      }
+    },
+    price: 120
+  }
+]
