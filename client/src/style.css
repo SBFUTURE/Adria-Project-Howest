@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #000000;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: white;
+	border: 2px solid #555555;
+}
+
+::-moz-selection {
+	/* Code for Firefox */
+	background: black;
+	color: white;
+}
+
+::selection {
+	color: white;
+	background: black;
+}
+
+/* Source marker style */
+.leaflet-marker-icon.source-marker {
+	box-shadow: 10px 5px 5px green;
+}
+
+/* Destination marker style */
+.leaflet-marker-icon.destination-marker {
+	box-shadow: 10px 5px 5px red;
+}
